@@ -44,6 +44,8 @@ def continua(muestra) :
     ans = [pow(fe[i]-manos[i], 2)/fe[i] for i in range(7)]
     obs = sum(ans)
     cri = chi2.ppf(1-0.05, 6)
+    if obs < cri:
+        print("Se tolera la hipotesis de Poker 🥳: ", end=" ", flush = True)
     print(obs, cri)
 
 def discreta(muestra, base) :
@@ -67,10 +69,6 @@ def discreta(muestra, base) :
     ans = [pow(fe[i]-manos[i], 2)/fe[i] for i in range((fe[0] == 0),7)]
     obs = sum(ans)
     cri = chi2.ppf(1-0.05, len(ans)-1)
+    if obs < cri:
+        print("Se tolera la hipotesis de Poker 🥳: ", end=" ", flush = True)
     print(obs, cri)
-
-ar = []
-for _ in range(30):
-    ar.append(random.randint(1,4))
-
-discreta(ar,4)

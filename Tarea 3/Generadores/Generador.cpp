@@ -19,7 +19,7 @@ int main(){
     Random randon;
     ofstream file("Muestras/muestra_c++_int.txt");
     for(int i = 0; i < 1e6; i++){
-        file << to_string(randon.integer(9)+1) << '\n';
+        file << to_string(randon.integer(10)+1) << '\n';
     }
     return 0;
 }

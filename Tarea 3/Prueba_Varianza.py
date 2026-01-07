@@ -10,12 +10,15 @@ def varianzaDis(l, r):
 def varianzaCon():
     return 1/12
 
-def continua(muestra):
+def continua(mm):
+    muestra=[float(e) for e in mm]
     n = len(muestra)
     aux = varianzaCon() / (n-1)
     Linf = chi2.ppf(0.05/2,n-1)*aux
     Lsup = chi2.ppf(1-(0.05/2),n-1)*aux
     mean = np.var(np.array(muestra))
+    if Linf < mean < Lsup:
+        print("Se tolera la hipotesis de varianza 🥳: ", end=" ", flush = True)
     print(Linf, mean, Lsup)
 
 def discreta(l,r,muestra):
@@ -24,10 +27,6 @@ def discreta(l,r,muestra):
     Linf = chi2.ppf(0.05 / 2, n - 1) * aux
     Lsup = chi2.ppf(1-(0.05/2),n-1)*aux
     mean = np.var(np.array(muestra))
+    if Linf < mean < Lsup:
+        print("Se tolera la hipotesis de varianza 🥳: ", end=" ",  flush = True)
     print(Linf, mean, Lsup)
-
-ar = []
-for _ in range(30):
-    ar.append(float(input()))
-
-continua(ar)

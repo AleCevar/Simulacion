@@ -1,19 +1,16 @@
 from math import pow
 from scipy.stats import chi2
-from random import randint
 
 def continua(muestra):
     # concatenación de los números
     tam=0
     for e in muestra:
-        xx=str(e)
-        assert(xx[0]=='0' and xx[1]=='.')
-        tam=max(tam, len(xx)-2)
+        tam=max(tam, len(e)-2)
     s = ""
     for e in muestra:
-        xx = str(e)[2:]
-        s+=xx
-        for _ in range(tam - len(xx)):
+        assert(e[0]=='0' and e[1]=='.')
+        s+=e[2:]
+        for _ in range(tam - len(e)):
             s += '0'
     # conteo de huecos
     mxN=7
@@ -32,6 +29,8 @@ def continua(muestra):
     ans = [pow(fe[i] - huecos[i], 2) / fe[i]  for i in range(mxN+1)]
     obs = sum(ans)
     cri = chi2.ppf(1-0.05,9)
+    if obs < cri:
+        print("Se tolera la hipotesis de Digitos 🥳: ", end=" ", flush = True)
     print(obs,cri)
 
 def discreta(muestra, base):
@@ -54,9 +53,7 @@ def discreta(muestra, base):
     ans = [pow(fe[i] - huecos[i], 2) / fe[i]  for i in range(mxN+1)]
     obs = sum(ans)
     cri = chi2.ppf(1-0.05,base-1)
+    if obs < cri:
+        print("Se tolera la hipotesis de Digitos 🥳: ", end=" ", flush = True)
     print(obs,cri)
 
-ar=[]
-for i in range(30):
-    ar.append(randint(1, 10))
-discreta(ar, 10)

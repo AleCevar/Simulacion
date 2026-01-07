@@ -1,6 +1,7 @@
 from scipy.stats import chi2
 
-def continua(muestra, m):
+def continua(mm, m = 1):
+    muestra = [float(e) for e in mm] # ojo aca para discretos
     inf = 0.3 * m
     sup = 0.7 * m
     t=0.4
@@ -19,7 +20,9 @@ def continua(muestra, m):
     ans = [pow(fe[i] - huecos[i], 2) / fe[i] for i in range(mxN+1)]
     obs = sum(ans)
     cri = chi2.ppf(1 - 0.05, mxN)
+    if obs < cri:
+        print("Se tolera la hipotesis de Numeros 🥳: ", end=" ",  flush = True)
     print(obs,cri)
 
-def discreta(muestra, m):
-    continua(muestra,m)
+def discreta(muestra, r):
+    continua(muestra,r)
