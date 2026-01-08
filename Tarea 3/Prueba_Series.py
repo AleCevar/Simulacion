@@ -6,7 +6,7 @@ def continua(mm, st=0.2, c=5):
     cuad = [[0 for _ in range(c)] for _ in range(c)]
     lim=[st*x for x in range(c)]
     for i in range(len(muestra)-1):
-        x, y=[muestra[i]-1, muestra[i+1]-1]
+        x, y=[muestra[i], muestra[i+1]]
         ar=[-1, -1]
         for j in range(c):
             if x>=lim[j]:
@@ -25,4 +25,5 @@ def continua(mm, st=0.2, c=5):
 
 def discreta(muestra, base):
     assert(base%2==0)
-    continua(muestra, 2, base // 2)
+    mm = [e - 1 for e in muestra]
+    continua(mm, 2, base // 2)

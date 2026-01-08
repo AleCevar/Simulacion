@@ -10,7 +10,7 @@ def continua(mm):
     mxN = 3
     huecos = [0 for _ in range(mxN+1)]
     for i in range(len(muestra)):
-        if inf <= muestra[i]/m <= sup:
+        if inf <= muestra[i] <= sup:
             if last != -1 :
                 huecos[min(i - last - 1, mxN)] += 1
             last = i
