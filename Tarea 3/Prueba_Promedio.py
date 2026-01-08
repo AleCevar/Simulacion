@@ -31,6 +31,11 @@ def continua(mm):
     if Linf < mean < Lsup:
         print("Se tolera la hipotesis de Promedio 🥳: ", end=" ", flush = True)
     print(Linf, mean, Lsup)
+    zz=norm.ppf(0.05/2)
+    xx=sqrt(n)/desviacionCon()
+    assert (zz < (mean-media)*xx < -zz)
+    print("Transformado: ", zz, (mean-media)*xx, -zz)
+
 
 def discreta(l, r, muestra):
     n = len(muestra)
@@ -42,4 +47,8 @@ def discreta(l, r, muestra):
     if Linf < mean < Lsup:
         print("Se tolera la hipotesis de Promedio 🥳: ", end=" ", flush = True)
     print(Linf, mean, Lsup)
+    zz=norm.ppf(0.05/2)
+    xx=sqrt(n)/desviacionDis(l, r)
+    assert (zz < (mean-media)*xx < -zz)
+    print("Transformado: ", zz, (mean-media)*xx, -zz)
 

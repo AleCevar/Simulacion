@@ -1,0 +1,182 @@
+\documentclass{beamer}
+\usepackage{graphicx} % Required for inserting images
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{amsmath}
+
+\title[Pruebas Estadísticas]{Pruebas Estadísticas}
+\subtitle{Tarea III}
+\author{Alejandro Cerdas \\ Kener Castillo}
+\institute{Curso: Simulación \\ Profesor: Eddy Ramírez Jiménez}
+\date{\today}
+
+\usetheme{Warsaw}
+\usecolortheme{orchid}
+
+\newcommand{\testZTwo}[4]{% #1=l #2=r #3=zobs
+\begin{tikzpicture}
+\begin{axis}[
+  domain=-4:4, samples=200,
+  axis lines=left,
+  xlabel={$z$}, ylabel={Densidad},
+  title={#4},
+  ytick=\empty,
+  xtick={#1,#2},
+  xticklabels={$#1$,$#2$},
+  tick label style={/pgf/number format/fixed}
+]
+\addplot[thick] {1/sqrt(2*pi)*exp(-x^2/2)};
+
+% regiones críticas
+\addplot[domain=-4:#1, fill=red, fill opacity=0.3]
+  {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+\addplot[domain=#2:4, fill=red, fill opacity=0.3]
+  {1/sqrt(2*pi)*exp(-x^2/2)} \closedcycle;
+
+% líneas críticas
+\addplot[dashed, thick] coordinates {(#1,0) (#1,0.4)};
+\addplot[dashed, thick] coordinates {(#2,0) (#2,0.4)};
+
+% observado
+\addplot[very thick] coordinates {(#3,0) (#3,0.35)};
+\node[anchor=north] at (axis cs:#3,0) {$z_{obs}=#3$};
+
+\end{axis}
+\end{tikzpicture}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Introducción}
+    Las pruebas estadísticas que se usaron fueron las mismas vistas en clase:
+    \begin{itemize}
+        \item Promedio
+        \item Varianza
+        \item Corridas por incrementos (continuos) y arriba/abajo (discretos)
+        \item Dígitos
+        \item Números
+        \item Poker
+        \item Series
+    \end{itemize}
+    \vspace{0.5cm}
+    \centering
+    \begin{tabular}{c c c c c c c}
+        \hline
+         & C & Python & Erlang & Racket & Java & C++ \\
+        \hline
+        Continuos & [1,4] y [1,8] & [1,6] & NA & [1,20] & NA & [1,10]\\
+        Discretos & NA & [0,1[ & [0,1[ & NA & [0,1[ & NA\\
+        \hline
+    \end{tabular}
+\end{frame}
+
+\begin{frame}{Fórmulas}
+    \begin{block} {Prueba de Promedio y Varianza}
+        \textbf{Discretos:} \\
+        \vspace{0.1cm}
+        $\sigma^2 = \frac{(r-l+1)^2 - 1}{12}$ \\
+        $\mu = \frac{\sum_{i=l}^r i}{r-l+1}$ 
+    \end{block}
+    \begin{block} {Prueba de Corrida Arriba/Abajo}
+        \textbf{Discretos:} \\
+        \vspace{0.1cm}
+        $E(h) = \frac{2 \times m \times n}{n + m + 1}$ \\
+        $\sigma ^ 2 = \frac{2 \times m \times n \times (2 \times m \times n - (m+n))}{(m+n)^2 \times (m+n-1)}$
+    \end{block}
+    \begin{block}{Prueba de Dígitos}
+        \textbf{Discretos:}\\
+        \vspace{0.1cm}
+        $tamaño\ del\ hueco = base - 1$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Fórmulas}
+    \begin{block} {Prueba de Números}
+        \textbf{Discretos:}\\
+        \vspace{0.1cm}
+        $[3, min(base, 3 + \lfloor \frac{base}{3} \rfloor)]$
+    \end{block}
+    \begin{block} {Prueba de Poker}
+        $P(diferentes) = \frac{\prod_{i = 0}^4 base - i}{base^5}$ \\
+        $P(1\ pareja) = \frac{\prod_{i=0}^3 base - i}{base ^ 5} \times \binom{5}{2}$\\
+        $P(2\ parejas) = \frac{\prod_{i=0}^2 base - i}{2 \times base^5} \times \binom{5}{2} \times \binom{3}{2}$\\
+        $P(trio) = \frac{\prod_{i=0}^2 base - i}{base^5} \times \binom{5 }{3}$\\
+        $P(full\ house) = \frac{\prod_{i=0}^1 base - i}{base^5} \times \binom{5}{3}$\\
+        $P(poker) = \frac{\prod_{i=0}^1 base - i}{base^5} \times \binom{5}{4}$\\
+        $P(quitilla) = \frac{base}{base^5}$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Fórmulas}
+    \begin{block}{Prueba de Series}
+        \textbf{Discretos:}\\
+        \vspace{0.1cm}
+        $cantidad\ de\ intervalos = \frac{base}{2}$\\
+        $intervalos = [0,2,4,...,2*i,...,2*cantidad]$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Pruebas de Promedio}
+
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+\resizebox{1.1\linewidth}{!}{
+\testZTwo{-1.96}{1.96}{0.28}{Java $[0, 1[$}
+}
+\column{0.5\textwidth}
+\centering
+\resizebox{1.1\linewidth}{!}{
+\testZTwo{-1.96}{1.96}{-0.05}{Erlang $[0, 1[$}
+}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Pruebas de Promedio}
+
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+\resizebox{1.1\linewidth}{!}{
+\testZTwo{-1.96}{1.96}{1.12}{Python $[0, 1[$}
+}
+\column{0.5\textwidth}
+\centering
+\resizebox{1.1\linewidth}{!}{
+\testZTwo{-1.96}{1.96}{-0.57}{Python $[1, 6]$}
+}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Pruebas de Promedio}
+
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+\resizebox{1.1\linewidth}{!}{
+\testZTwo{-1.96}{1.96}{0.06}{C $[1, 4]$}
+}
+\column{0.5\textwidth}
+\centering
+\resizebox{1.1\linewidth}{!}{
+\testZTwo{-1.96}{1.96}{0.68}{C $[1, 8]$}
+}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Muestras Discretas}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[0.5\textwidth]{1a4.png}
+    \end{columns}
+\end{frame}
+
+\end{document}

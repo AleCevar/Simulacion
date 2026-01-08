@@ -6,6 +6,8 @@ import Prueba_Corrida as pc
 import Prueba_Poker as pp
 import Prueba_Series as ps
 
+import matplotlib.pyplot as plt
+
 names = [
         "muestra_c_4.txt",
          "muestra_c_8.txt",
@@ -22,14 +24,24 @@ for i in range(len(names)):
         for l in f:
             muestra.append(int(l))
         pe.discreta(1, base[i], muestra)
-        pv.discreta(1, base[i], muestra)
-        pd.discreta(muestra, base[i])
-        pn.discreta(muestra, base[i])
-        pc.discreta(muestra, base[i])
-        pp.discreta(muestra, base[i])
-        ps.discreta(muestra, base[i])
-        print()
+        # pv.discreta(1, base[i], muestra)
+        # pd.discreta(muestra, base[i])
+        # pn.discreta(muestra, base[i])
+        # pc.discreta(muestra, base[i])
+        # pp.discreta(muestra, base[i])
+        # ps.discreta(muestra, base[i])
+        # x=[i+1 for i in range(base[i])]
+        # y=[0 for i in range(base[i])]
+        # for e in muestra:
+        #     y[e-1]+=1
+        # plt.plot(x, y, marker='o', linestyle='-')
+        # plt.xlabel('n')
+        # plt.ylabel('f(n)')
+        # plt.title('Frecuencia de 1 a '+str(base[i]))
+        # plt.grid(True)
+        # plt.show()
 
+print()
 
 # python int digitos no paso
 # c - 4 no paso poker
