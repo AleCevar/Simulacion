@@ -10,15 +10,15 @@ names=["muestra_erlang_float.txt","muestra_java_float.txt","muestra_python_float
 
 for name in names:
     with open("Generadores/Muestras/" + name, "r", encoding="utf-8") as f:
-        print(name)
+        print(name, flush=True)
         muestra = []
         for l in f:
             muestra.append(l[:-1])
-        pe.continua(muestra)
-        pv.continua(muestra)
-        pd.continua(muestra)
-        pn.continua(muestra)
+        # pe.continua(muestra)
+        # pv.continua(muestra)
+        # pd.continua(muestra)
+        # pn.continua(muestra)
         pc.continua(muestra)
-        pp.continua(muestra)
-        ps.continua(muestra)
+        # pp.continua(muestra)
+        # ps.continua(muestra)
         print()

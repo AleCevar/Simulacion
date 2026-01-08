@@ -1,3 +1,4 @@
+import random
 from math import pow
 from scipy.stats import chi2
 
@@ -36,12 +37,10 @@ def continua(muestra):
 def discreta(muestra, base):
     # concatenacion y conteo
     mxN = base-1
-    huecos = [0 for _ in range(mxN+1)]
+    huecos = [0 for _ in range(base)]
     pos = [-1 for _ in range(base)]
     for i in range(len(muestra)):
-        e=muestra[i]
-        if e==base:
-            e=0
+        e=muestra[i]-1
         if pos[e]!=-1:
             huecos[min(mxN, i-pos[e]-1)]+=1
         pos[e]=i
@@ -56,4 +55,3 @@ def discreta(muestra, base):
     if obs < cri:
         print("Se tolera la hipotesis de Digitos 🥳: ", end=" ", flush = True)
     print(obs,cri)
-

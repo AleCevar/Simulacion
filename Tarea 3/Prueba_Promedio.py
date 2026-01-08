@@ -4,9 +4,8 @@ from numpy.ma.extras import average
 from scipy.stats import norm
 
 def desviacionDis(l, r):
-    sum=0
-    for i in range(l, r+1):
-        sum+=i*i-i+0.25
+    n = r - l + 1
+    sum = (n * n - 1) / 12
     return sqrt(sum)
 
 def desviacionCon():
@@ -44,7 +43,3 @@ def discreta(l, r, muestra):
         print("Se tolera la hipotesis de Promedio 🥳: ", end=" ", flush = True)
     print(Linf, mean, Lsup)
 
-# ar = []
-# for i in range(100000):
-#     ar.append(random.randint(1, 6))
-# discreta(1, 6, ar)
