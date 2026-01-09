@@ -14,11 +14,11 @@ for name in names:
         muestra = []
         for l in f:
             muestra.append(l[:-1])
-        pe.continua(muestra)
-        pv.continua(muestra)
-        pd.continua(muestra)
-        pn.continua(muestra)
-        pc.continua(muestra)
-        pp.continua(muestra)
+        # pe.continua(muestra)
+        # pv.continua(muestra)
+        #pd.continua(muestra)
+        #pn.continua(muestra)
+        # pc.continua(muestra)
+        #pp.continua(muestra)
         ps.continua(muestra)
         print()
