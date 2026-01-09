@@ -23,12 +23,12 @@ for i in range(len(names)):
         muestra = []
         for l in f:
             muestra.append(int(l))
-        # pe.discreta(1, base[i], muestra)
-        # pv.discreta(1, base[i], muestra)
-        #pd.discreta(muestra, base[i])
-        #pn.discreta(muestra, base[i])
-        # pc.discreta(muestra, base[i])
-        #pp.discreta(muestra, base[i])
+        pe.discreta(1, base[i], muestra)
+        pv.discreta(1, base[i], muestra)
+        pd.discreta(muestra, base[i])
+        pn.discreta(muestra, base[i])
+        pc.discreta(muestra, base[i])
+        pp.discreta(muestra, base[i])
         ps.discreta(muestra, base[i])
 
         # x=[i+1 for i in range(base[i])]
