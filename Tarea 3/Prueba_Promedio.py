@@ -35,6 +35,7 @@ def continua(mm):
     xx=sqrt(n)/desviacionCon()
     assert (zz < (mean-media)*xx < -zz)
     print("Transformado: ", zz, (mean-media)*xx, -zz)
+    print("Media : ", abs(media - mean))
 
 
 def discreta(l, r, muestra):
