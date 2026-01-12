@@ -3,6 +3,7 @@ import math
 import Pruebas.Chi_Cuadrado as chi
 import Pruebas.Kolmogorov_Smirnov as kol
 import Distribuciones.Normal_Ajustada as dis
+import Distribuciones.Uniforme as unif
 
 name = "Muestras/m15.txt"
 freq= dict()
@@ -25,11 +26,11 @@ prob = [j / n for j in y]
 
 [lamb, fun] = dis.calc(x, prob, 0.001)
 
-# plt.plot(x,prob)
-# plt.xlabel('Valores')
-# plt.ylabel('Frecuencia relativa')
-# plt.title('Histograma de Frecuencias Relativa')
-# plt.show()
+plt.plot(x,prob)
+plt.xlabel('Valores')
+plt.ylabel('Frecuencia relativa')
+plt.title('Histograma de Frecuencias Relativa')
+plt.show()
 # #
 # plt.bar(x,y, color="green")
 # plt.xlabel('Valores')
@@ -44,7 +45,7 @@ prob = [j / n for j in y]
 # plt.show()
 # #
 # plt.bar(x,prob, alpha=0.1, color='yellow', label="Densidad Relativa")
-plt.bar(x,fun, alpha=0.2, color='cyan', label=rf"Densidad Poisson $\lambda = $ {lamb}")
+# plt.bar(x,fun, alpha=0.2, color='cyan', label=rf"Densidad Poisson $\lambda = $ {lamb}")
 plt.bar(x,prob, alpha=0.1, color='yellow', label="Densidad Relativa")
 plt.xlabel('Valores')
 plt.ylabel('Densidad')
