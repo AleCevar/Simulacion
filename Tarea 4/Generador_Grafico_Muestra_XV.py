@@ -1,16 +1,18 @@
+import matplotlib.pyplot as plt
+import math
 import Pruebas.Chi_Cuadrado as chi
 import Pruebas.Kolmogorov_Smirnov as kol
-import Distribuciones.Poisson as dis
-import matplotlib.pyplot as plt
+import Distribuciones.Normal_Ajustada as dis
 
-name = "Muestras/m4.txt"
+name = "Muestras/m15.txt"
 freq= dict()
 n=0
 
 with open(name, "r", encoding="utf-8") as f:
     for l in f:
         n+=1
-        num = int(l)
+        num = math.trunc(float(l) * 1000) / 1000
+        # num=int(float(l))
         freq[num] = freq.get(num, 0) + 1
 
 x=[]
@@ -21,37 +23,34 @@ for a, b in sorted(freq.items()):
 
 prob = [j / n for j in y]
 
-# [lamb, fun] = poiss.calc(x,prob)
-[lamb, fun] = dis.calc(x,prob)
+[lamb, fun] = dis.calc(x, prob, 0.001)
 
-print(x)
-print(y)
-
-# plt.bar(x,prob)
+# plt.plot(x,prob)
 # plt.xlabel('Valores')
 # plt.ylabel('Frecuencia relativa')
 # plt.title('Histograma de Frecuencias Relativa')
 # plt.show()
-#
+# #
 # plt.bar(x,y, color="green")
 # plt.xlabel('Valores')
 # plt.ylabel('Frecuencia observada')
 # plt.title('Histograma de Frecuencias Absolutas')
 # plt.show()
-#
+# #
 # plt.bar(x, fun,color='red')
 # plt.xlabel('Valores')
 # plt.ylabel('Frecuencia absoluta')
 # plt.title(f"Histograma de la Distribución X~poiss({lamb})")
 # plt.show()
-#
-# plt.bar(x,prob, alpha=0.4, color='yellow', label="Densidad Relativa")
-# plt.bar(x,fun, alpha=0.4, color='cyan', label=rf"Densidad Poisson $\lambda = $ {lamb}")
-# plt.xlabel('Valores')
-# plt.ylabel('Densidad')
-# plt.title(f"Comparación Datos Esperados y Observados para la Distribución X~pois")
-# plt.legend()
-# plt.show()
+# #
+# plt.bar(x,prob, alpha=0.1, color='yellow', label="Densidad Relativa")
+plt.bar(x,fun, alpha=0.2, color='cyan', label=rf"Densidad Poisson $\lambda = $ {lamb}")
+plt.bar(x,prob, alpha=0.1, color='yellow', label="Densidad Relativa")
+plt.xlabel('Valores')
+plt.ylabel('Densidad')
+plt.title(f"Comparación Datos Esperados y Observados para la Distribución X~pois")
+plt.legend()
+plt.show()
 
-# chi.test(y,fun,1)
-# kol.test(y,fun)
+chi.test(y,fun,2)
+kol.test(y,fun)

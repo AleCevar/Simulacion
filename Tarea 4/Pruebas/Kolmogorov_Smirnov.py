@@ -18,7 +18,6 @@ def test(fo, pe):
     if obs < cri:
         print("Se tolera:",end=" ")
     print(obs,cri)
-    print(abs_oe)
 
 # fo = [25,55,65,35,20,10]
 # pe = [poisson.pmf(i, 2) for i in range(6)]

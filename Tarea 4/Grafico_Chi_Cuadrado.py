@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.stats import norm, chi2
+from scipy.stats import norm
 import matplotlib.pyplot as plt
 
 def mostrar(chi_obs, df):
