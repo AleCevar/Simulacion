@@ -1,8 +1,10 @@
-import matplotlib.pyplot as plt
 import math
 import Pruebas.Chi_Cuadrado as chi
 import Pruebas.Kolmogorov_Smirnov as kol
 import Calculos.Regresion_Lineal as reg
+import Graficador.Graficador_Distribuciones as grf
+import Graficador.Grafico_Chi_Cuadrado as gchi
+import matplotlib.pyplot as plt
 
 name = "Muestras/m16.txt"
 freq= dict()
@@ -23,7 +25,7 @@ for a, b in sorted(freq.items()):
 
 prob = [j / n for j in y]
 
-[a,b, fun] = reg.calc(x, prob)
+al,be, fun = reg.calc(x, prob)
 clases=dict()
 claori=dict()
 for i in range(len(x)):
@@ -42,32 +44,22 @@ for a, b in sorted(clases.items()):
 for a, b in sorted(claori.items()):
     fo.append(b)
 
+aux = [z/n for z in fo]
 
-# plt.plot(x,prob)
-# plt.xlabel('Valores')
-# plt.ylabel('Frecuencia relativa')
-# plt.title('Histograma de Frecuencias Relativa')
-# plt.show()
-#
-# plt.bar(xmod,fo, color="green")
-# plt.xlabel('Valores')
-# plt.ylabel('Frecuencia observada')
-# plt.title('Histograma de Frecuencias Absolutas')
-# plt.show()
-# # #
-# plt.bar(xmod,[z*n for z in pe],color='red')
-# plt.xlabel('Valores')
-# plt.ylabel('Frecuencia absoluta')
-# plt.title(f"Histograma de la Distribución X~poiss({1})")
-# plt.show()
-# # # #
-# plt.bar(xmod, [z/n for z in fo], alpha=0.4, color='yellow', label="Densidad Relativa")
-# plt.bar(xmod,pe, alpha=0.4, color='cyan', label=rf"Densidad Poisson $\lambda = $ {1}")
-# plt.xlabel('Valores')
-# plt.ylabel('Densidad')
-# plt.title(f"Comparación Datos Esperados y Observados para la Distribución X~pois")
-# plt.legend()
-# plt.show()
+grf.relativa(xmod, aux)
+grf.absoluta(xmod,fo)
 
-chi.test(fo,pe,0)
+grf.distribucion(xmod,pe,rf"Histograma de $f(x) = {al} \times x^{{{be}}}$")
+grf.comparacion(xmod, aux, pe, r"Densidad $f(x) = \alpha \times x^{\beta}$", r"Comparación con $f(x) = \alpha \times x^{\beta}$")
+
+plt.plot(xmod, aux, alpha=0.4, color='yellow', label="Muestra")
+plt.plot(xmod, pe, alpha=0.4, color='cyan', label="Estimación")
+plt.xlabel('Valores')
+plt.ylabel('Densidad')
+plt.title(r"Comparación con la función Exponencial")
+plt.legend()
+plt.show()
+
+obs,cri,df = chi.test(fo,pe,0)
 kol.test(fo,pe)
+gchi.mostrar(obs,df)

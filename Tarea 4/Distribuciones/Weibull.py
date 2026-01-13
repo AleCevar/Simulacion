@@ -21,4 +21,4 @@ def calc(val, prob, dif):
     [k , l] = weibull_params(exp, var)
     fun=[weibull_min.cdf(val[i]+dif, k, scale = l )-weibull_min.cdf(val[i], k, scale = l) for i in range(len(val))]
     print(exp, var)
-    return [exp, fun]
+    return [k,l, fun]

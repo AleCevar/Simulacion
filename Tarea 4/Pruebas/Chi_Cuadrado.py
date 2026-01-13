@@ -15,8 +15,10 @@ def fix(fe, fo, m) :
     afo.reverse()
     return afe, afo
 
-def test(fo, pe, est):
+def test(pfo, ppe, est):
+    fo= pfo.copy()
     n = sum(fo)
+    pe = ppe.copy()
     fe = [n * x for x in pe]
     fe, fo = fix(fe, fo, len(fe))
     assert all(f >= 5 for f in fe)
@@ -29,8 +31,8 @@ def test(fo, pe, est):
     print(obs, cri)
     # print(fo)
     # print(fe)
-    print(m)
-    return obs,cri
+    # print(m)
+    return obs,cri,m
 #
 # fo = [25,55,65,35,20,10]
 # pe = [poisson.pmf(i, 2) for i in range(6)]

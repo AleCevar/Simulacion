@@ -5,5 +5,3 @@ def calc(val, prob):
     exp = 4.2
     fun=[poisson.pmf(val[i], exp) for i in range(len(val))]
     return [exp, fun]
-
-

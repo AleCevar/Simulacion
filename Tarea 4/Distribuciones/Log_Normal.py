@@ -8,5 +8,4 @@ def calc(val, prob, dif):
     des = sqrt(var)
     s = np.exp(exp)
     fun=[lognorm.cdf(val[i]+dif, des, scale = s)-lognorm.cdf(val[i],  des, scale = s) for i in range(len(val))]
-    print(exp, des)
-    return [exp, fun]
+    return exp, des, fun

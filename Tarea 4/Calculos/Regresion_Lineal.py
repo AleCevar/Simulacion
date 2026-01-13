@@ -7,5 +7,4 @@ def calc(x, y):
     b,m = np.polyfit(x_,y_,1)
     a = np.exp(m)
     fun = [a*pow(z,b) for z in x]
-    print(a,b)
     return a,b,fun

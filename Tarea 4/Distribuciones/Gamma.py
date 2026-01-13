@@ -6,5 +6,4 @@ def calc(val, prob, dif):
     b = exp / var
     a = exp * b
     fun=[gamma.cdf(val[i]+dif, a , scale = (1 / b))-gamma.cdf(val[i], a, scale = (1/b)) for i in range(len(val))]
-    print(exp, var)
-    return [exp, fun]
+    return [a,b,fun]
