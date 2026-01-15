@@ -1,8 +1,0 @@
-//
-// Created by alejandro on 14/1/26.
-//
-
-#ifndef SIMULACION_EXPONENCIAL_H
-#define SIMULACION_EXPONENCIAL_H
-
-#endif //SIMULACION_EXPONENCIAL_H
