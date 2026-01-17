@@ -27,11 +27,11 @@ class Checkout {
     void attendClient(Client * client){
       double time = getTime();
       double enterTime = max(client->getArrivalTime(), lastTime);
-      show("Client "<<client->getId()<<" attended on server "<<id<<" at time "<<enterTime);
+      show("Client "<<client->getId()<<" attended on checkout "<<id<<" at time "<<enterTime);
       client->updateCheckoutEnterTime(enterTime);
       client->updateCheckoutExitTime(time + enterTime);
-      lastTime=enterTime+time;
-      show("Server "<<id<<" free at time "<<lastTime);
+      lastTime = enterTime + time;
+      show("Checkout "<<id<<" will free at time "<<lastTime);
     }
 };
 

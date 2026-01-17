@@ -36,7 +36,8 @@ class Station {
       for(int i = 0; i < numServers; i++){
         servers[i] = Server(dis,i);
       }
-      gen = mt19937(random_device{}());
+      random_device rd;
+      gen = mt19937(rd());
       random = uniform_real_distribution<double>(0.0, 1.0);
 		}
 		
@@ -45,7 +46,8 @@ class Station {
     }
     
     bool wantToBuy() {
-      return random(gen)<probBuy;
+      double n = random(gen);
+      return n < probBuy;
     }
 		
 		void start(){
@@ -53,7 +55,7 @@ class Station {
 			while(!orders.empty()){
         auto client = orders.back(); orders.pop_back();
         int serverId = findNextServer();
-        show("Client at "<<name<<" on server "<<serverId);
+        show("Client "<<client->getId()<<" at "<<name<<" on server "<<serverId<<" :");
         servers[serverId].attendClient(client);
       }
     }

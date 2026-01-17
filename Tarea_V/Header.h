@@ -16,8 +16,20 @@ using namespace std;
 #define debug(ARG) 42
 #endif
 
+#ifdef SHOW
+#define save(ARG) info.push_back(ARG)
+#else
+#define save(ARG) 42
+#endif
 
+struct Data{
+    string place;
+    int idCliente;
+    double arrivalTime;
+    double attenTime;
+    double exitTime;
+};
 
-
+extern vector<Data> info;
 
 #endif

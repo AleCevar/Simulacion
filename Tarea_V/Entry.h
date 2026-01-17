@@ -14,10 +14,10 @@ class Entry {
     Distribution * arriveDis;
     Distribution * amountDis;
     int numServers;
-    const int limitTime = 480; //480
+    const int limitTime = 480;
     vector<Station> stations;
     vector<Checkout> servers;
-    vector<Client> clients;
+    vector<Client*> clients;
 
   int findNextServer(){
     int pos=0;
@@ -40,21 +40,35 @@ class Entry {
       double currentTime = arriveDis->generate();
       int id=0;
       while(currentTime <= limitTime) {
-        show("Client Arrival at start: "<<id<<' '<<currentTime);
-        clients.push_back(Client(id, currentTime));
+        show("Client "<<id<<" arrives at start: "<<currentTime);
+        Client * newc =new Client(id, currentTime);
+        clients.push_back(newc);
         int pos = findNextServer();  
-        servers[pos].attendClient(&clients.back());
-        for(auto s : stations){
+        servers[pos].attendClient(newc);
+        for(auto &s : stations){
           if(s.wantToBuy()){
             int amount = amountDis->generate();
             show("Client "<<id<<" buys "<<amount<<" "<<s.getName());
-            while((amount--)>0) s.addOrder(&clients.back());
+            while((amount--)>0) s.addOrder(newc);
           }
         }
         id++;
         currentTime += arriveDis->generate();
       }
-      for(auto s : stations) s.start();
+      for(auto &s : stations) s.start();
+      // for(auto e: clients) 
+      // cout<<e->getId()<<' '<<e->getArrivalTime()<<' '
+      //   <<e->getCheckoutExitTime()<<' '<<e->getExitTime()<<' '<<e->getTotalTime()<<'\n';
+    }
+
+    double getEstadistics(){
+      vector<double> waitTime;
+      double sum = 0;
+      for(auto client : clients){
+        waitTime.push_back(client->getTotalTime());
+        sum += client->getTotalTime();
+      }
+      return sum / waitTime.size();
     }
 };
 

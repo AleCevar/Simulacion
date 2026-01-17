@@ -12,18 +12,18 @@
 
 class Run {
   private:
-
+    const int times=100;
   public:
 
     Run(){}
 
-    void simulate(vector<int> assignation) {
-      Exponential dri = Exponential(0.75);
+    double run(vector<int>& assignation) {
+      Exponential dri = Exponential(1/0.75);
       Normal fry = Normal(3, 1);
       Binomial des = Binomial(5,0.6);
       Geometric chi = Geometric(0.1);
-      Exponential checkoutDis = Exponential(2.5);
-      Binomial amountDis = Binomial(5, 2/5);
+      Exponential checkoutDis = Exponential(1/2.5);
+      Binomial amountDis = Binomial(5, 2.0/5);
       Poisson arriveDis = Poisson(3);
       vector<Station> stations={
         Station("Drinks", assignation[1], &dri, 0.9),
@@ -34,6 +34,15 @@ class Run {
       Entry entry(&arriveDis, &amountDis, 
         &checkoutDis, stations, assignation[0]);
       entry.start();
+      return entry.getEstadistics();
+    }
+
+    double simulate(vector<int> assignation){
+      double sum = 0;
+      for(int i = 0; i < times; i++){
+        sum += run(assignation);
+      }
+      return sum / times;
     }
 
 };

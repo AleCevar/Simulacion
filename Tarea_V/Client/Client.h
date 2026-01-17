@@ -15,7 +15,7 @@ class Client {
     Client(int id_, double arrivalTime_) : arrivalTime(arrivalTime_), checkoutEnterTime(0), checkoutExitTime(0), exitTime(0), id(id_) {}
 
     double getTotalTime() {
-      return exitTime-arrivalTime;
+      return max(exitTime-arrivalTime, checkoutExitTime-arrivalTime);
     }
 
     void updateExitTime(double exitTime_){
@@ -36,6 +36,10 @@ class Client {
 
     double getArrivalTime(){
       return arrivalTime;
+    }
+
+    double getExitTime() {
+      return exitTime;
     }
 
     int getId(){
