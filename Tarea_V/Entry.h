@@ -14,7 +14,7 @@ class Entry {
     Distribution * arriveDis;
     Distribution * amountDis;
     int numServers;
-    const int limitTime = 480;
+    const int limitTime = LIMIT_TIME;
     vector<Station> stations;
     vector<Checkout> servers;
     vector<Client*> clients;
@@ -56,19 +56,26 @@ class Entry {
         currentTime += arriveDis->generate();
       }
       for(auto &s : stations) s.start();
-      // for(auto e: clients) 
-      // cout<<e->getId()<<' '<<e->getArrivalTime()<<' '
-      //   <<e->getCheckoutExitTime()<<' '<<e->getExitTime()<<' '<<e->getTotalTime()<<'\n';
+    #ifdef SHOW 
+      resume();
+    #endif
     }
 
-    double getEstadistics(){
-      vector<double> waitTime;
+    void resume() {
+      cout<<"Client ID,Arrival time,Checkout exit,Exit time,Total time\n";
+      for(auto e: clients) 
+      cout<<e->getId()<<','<<e->getArrivalTime()<<','
+      <<e->getCheckoutExitTime()<<','<<e->getExitTime()<<','<<e->getTotalTime()<<'\n';
+    }
+
+    pair<double,double> getEstadistics(){
       double sum = 0;
-      for(auto client : clients){
-        waitTime.push_back(client->getTotalTime());
-        sum += client->getTotalTime();
-      }
-      return sum / waitTime.size();
+      for(auto client : clients) sum += client->getTotalTime();
+      double mean = sum / int(clients.size());
+      double variance = 0;
+      for(auto e: clients) variance+=pow(mean-e->getTotalTime(), 2);
+      variance/=int(clients.size());
+      return {mean,variance};
     }
 };
 

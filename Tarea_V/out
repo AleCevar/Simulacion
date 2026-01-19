@@ -1,4 +1,8 @@
-Best sample average : 10.4958
+Best sample average : 10.2907
 Best configuration: 2 1 3 2 4 
-Worst sample average : 154.648
-Worst configuration: 1 1 1 8 1 
+Worst sample average : 155.459
+Worst configuration: 1 7 1 2 1 
+Best sample variance : 68.7178
+Best configuration: 2 1 3 1 5 
+Worst sample variance : 19706.2
+Worst configuration: 3 5 1 2 1 

@@ -16,20 +16,27 @@ using namespace std;
 #define debug(ARG) 42
 #endif
 
-#ifdef SHOW
-#define save(ARG) info.push_back(ARG)
-#else
-#define save(ARG) 42
-#endif
+#define EXTRA_PEOPLE 7
+#define LIMIT_TIME 480
+#define NUMBER_CYCLES 100
 
-struct Data{
-    string place;
-    int idCliente;
-    double arrivalTime;
-    double attenTime;
-    double exitTime;
-};
-
-extern vector<Data> info;
+#define DRI_LAMBDA 1/0.75
+#define FRY_MEAN 3
+#define FRY_DESVIATION 1
+#define DES_N 5
+#define DES_P 0.6
+#define CHI_P 0.1
+#define CHECKOUT_LAMBDA 1/2.5
+#define AMOUNT_N 5
+#define AMOUNT_P 2.0/5
+#define ARRIVE_LAMBDA 3
+#define FIRST_PROB 0.9
+#define SECOND_PROB 0.7
+#define THIRD_PROB 0.25
+#define FOURTH_PROB 0.3
+#define FIRST_NAME "Drinks"
+#define SECOND_NAME "Fryer"
+#define THIRD_NAME "Desserts"
+#define FOURTH_NAME "Chicken"
 
 #endif
