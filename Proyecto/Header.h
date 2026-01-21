@@ -6,6 +6,8 @@
 #include <random>
 #include <algorithm>
 #include <map>
+#include <cstdio>
+#include <set>
 
 #include <boost/math/distributions/chi_squared.hpp>
 #include <boost/math/distributions/poisson.hpp>
@@ -25,9 +27,9 @@ using namespace std;
 #define debug(ARG) 42
 #endif
 
-#define EXTRA_PEOPLE 7
+#define EXTRA_PEOPLE 10
 #define LIMIT_TIME 480
-#define NUMBER_CYCLES 100
+#define NUMBER_CYCLES 10
 
 #define DRI_LAMBDA 1/0.75
 #define FRY_MEAN 3
@@ -35,7 +37,8 @@ using namespace std;
 #define DES_N 5
 #define DES_P 0.6
 #define CHI_P 0.1
-#define CHECKOUT_LAMBDA 1/2.5
+#define CHECKOUT_LAMBDA 1/2.0
+// #define CHECKOUT_LAMBDA 1/2.5
 #define AMOUNT_N 5
 #define AMOUNT_P 2.0/5
 #define ARRIVE_LAMBDA 3

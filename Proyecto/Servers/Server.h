@@ -27,7 +27,6 @@ class Server {
 
     void attendClient(Client* client){
       double time = getTime();
-      // debug(client->getCheckoutExitTime());
       double enterTime = max(client->getCheckoutExitTime(), lastTime);
       updateLastTime(time + enterTime);
       client->updateExitTime(time + enterTime);

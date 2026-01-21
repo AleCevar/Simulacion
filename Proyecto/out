@@ -1,21 +1,6 @@
-Exponential Tests - lambda = 1.33333
-Chi Square: Se tolera: 457.516 < 467.725
-Kolmogorov-Smirnov: Se tolera: 0.00319904 < 0.0043007
-Normal Tests - mean = 3 deviation = 1
-Chi Square: NO se tolera: 2.34076e+06 < 12.5916
-Kolmogorov-Smirnov: NO se tolera: 0.679885 < 0.0043007
-Binomial Tests - n = 5 p = 0.6
-Chi Square: Se tolera: 7.65926 < 11.0705
-Kolmogorov-Smirnov: Se tolera: 0.00206 < 0.0043007
-Geometric Tests - p = 0.1
-Chi Square: Se tolera: 56.3945 < 93.9453
-Kolmogorov-Smirnov: Se tolera: 0.00321844 < 0.0043007
-Exponential Tests - lambda = 0.4
-Chi Square: Se tolera: 1148.3 < 1173.1
-Kolmogorov-Smirnov: Se tolera: 0.00245787 < 0.0043007
-Binomial Tests - n = 5 p = 0.4
-Chi Square: Se tolera: 7.44585 < 11.0705
-Kolmogorov-Smirnov: Se tolera: 0.00194 < 0.0043007
-Poisson Tests - Lambda = 3
-Chi Square: Se tolera: 7.48524 < 21.0261
-Kolmogorov-Smirnov: Se tolera: 0.00100173 < 0.0043007
+Mean: 8.94212
+Configuration: 2 1 4 2 4 
+Mean: 8.97118
+Configuration: 2 1 3 3 6 
+Mean: 9.26721
+Configuration: 2 1 3 2 6 

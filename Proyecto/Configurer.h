@@ -55,11 +55,17 @@ class Run {
       Binomial amountDis = Binomial(AMOUNT_N, AMOUNT_P);
       Poisson arriveDis = Poisson(ARRIVE_LAMBDA);
       dri.test();
+      cout<<'\n';
       fry.test();
+      cout<<'\n';
       des.test();
+      cout<<'\n';
       chi.test();
+      cout<<'\n';
       checkoutDis.test();
+      cout<<'\n';
       amountDis.test();
+      cout<<'\n';
       arriveDis.test();
     }
 

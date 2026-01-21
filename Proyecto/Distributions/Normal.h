@@ -11,27 +11,35 @@ class Normal : public Distribution {
     double mean;
     double stddev;
     mt19937 gen;
-    normal_distribution<> dist;
+    uniform_real_distribution<double> random;
     boost::math::normal func;
     ChiSquare chiSquare;
     KolmogorovSmirnov kolmogorov;
+    vector<double> chart;
 
   public:
     explicit Normal(double mean_, double stddev_) : mean(mean_), stddev(stddev_) {
       random_device rd;
       gen = mt19937(rd());
-      dist = normal_distribution<>(mean,stddev);
       chiSquare = ChiSquare();
       kolmogorov = KolmogorovSmirnov();
       func = boost::math::normal(mean,stddev);
+      double out = boost::math::cdf(func, 0);
+      random = uniform_real_distribution<double>(out, boost::math::cdf(func,6));
+      for(int i = 1; i <= 6; i++){
+        chart.push_back(cdf(func, i) - out);
+      }
     }
 
     double generate() override {
-      int re = ceil(dist(gen)+1);
-      assert(re>=0);
-      return re;
+      double num = random(gen);
+      int val=0;
+      for(int i=0; i<6; i++) if(num<=chart[i]){
+        val=i+1;
+        break;
+      }
+      return val;
     } 
-    // ojo negativos >:)
 
     bool test() override {
       int total = 1e5;
@@ -40,9 +48,9 @@ class Normal : public Distribution {
       vector<double> fo, pe;
       for(auto [x,y] : data) {
         fo.push_back(y);
-        pe.push_back(cdf(func, x+1) - cdf(func, x));
+        pe.push_back(cdf(func, x) - cdf(func, x-1));
       }
-      cout << "Normal Tests - mean = " << mean << "deviation = " << stddev << '\n';
+      cout << "Normal Tests - mean = " << mean << " deviation = " << stddev << '\n';
       int res = 0;
       res |= chiSquare.test(fo,pe);
       res |= kolmogorov.test(fo,pe);
