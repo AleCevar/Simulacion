@@ -12,7 +12,7 @@ void brute(){
         vector<int> asig={1 + i, 1 + j, 1 + k, 
                 1 + m, 1 + EXTRA_PEOPLE - i - j - k - m};
           
-          auto[prom, var] = run.simulate(asig, NUMBER_CYCLES);
+          auto[prom, var] = run.simulate(asig);
           if(prom < mnMean){
             mnMean = prom;
             bestMean = asig;
@@ -63,6 +63,11 @@ void part2a() {
 
 vector<int> cost={500, 750, 200, 0, 100};
 
+int calCost(vector<int> c) {
+  int sum=0;
+  for(int i=0; i<5; i++) sum+=c[i]*cost[i];
+  return sum;
+}
 
 void part2bc(int money){
   Run run = Run();
@@ -73,10 +78,8 @@ void part2bc(int money){
         for(int m = 0; m <= EXTRA_PEOPLE - i - j - k; m++)
           for(int x=0; x <=  EXTRA_PEOPLE - i - j - k - m; x++){
           vector<int> asig={1 + i, 1 + j, 1 + k, 1 + m, 1 + x};
-          int sum = 0;
-          for(int i = 0; i < 5; i++) sum += asig[i] * cost[i];
-          if(sum > money) continue;
-          auto[prom, var] = run.simulate(asig, NUMBER_CYCLES);
+          if(calCost(asig) > money) continue;
+          auto[prom, var] = run.simulate(asig);
           best.insert({prom,asig});
           if(best.size()>3) best.erase(prev(best.end()));
         }
@@ -85,13 +88,16 @@ void part2bc(int money){
   }
   for(auto & [m, a] : best){
     cout << "Mean: " << m << '\n';
+    cout << "Cost: " << calCost(a) << '\n';
     cout << "Configuration: ";
     for(auto x : a) cout << x << ' ';
     cout << '\n';
   }
 }
 
-void part2d(int money = 3000){
+void part2d(double lambda, int money = 3000){
+  part2bc(money);
+  cout<<'\n';
   Run run = Run();
   set<pair<double, vector<int>>> best;
   for(int i = 0; i <= EXTRA_PEOPLE; i++){
@@ -100,10 +106,8 @@ void part2d(int money = 3000){
         for(int m = 0; m <= EXTRA_PEOPLE - i - j - k; m++)
           for(int x=0; x <=  EXTRA_PEOPLE - i - j - k - m; x++){
           vector<int> asig={1 + i, 1 + j, 1 + k, 1 + m, 1 + x};
-          int sum = 0;
-          for(int i = 0; i < 5; i++) sum += asig[i] * cost[i];
-          if(sum > money) continue;
-          auto[prom, var] = run.simulate(asig, NUMBER_CYCLES);
+          if(calCost(asig) > money) continue;
+          auto[prom, var] = run.simulate(asig,NUMBER_CYCLES,lambda);
           best.insert({prom,asig});
           if(best.size()>3) best.erase(prev(best.end()));
         }
@@ -112,10 +116,25 @@ void part2d(int money = 3000){
   }
   for(auto & [m, a] : best){
     cout << "Mean: " << m << '\n';
+    cout << "Cost: " << calCost(a) << '\n';
     cout << "Configuration: ";
     for(auto x : a) cout << x << ' ';
     cout << '\n';
   }
+}
+
+void part2e(double chickenProb){
+  Run run = Run();
+  cout<<"2. e) No se puede. El tiempo converge a los 10 minutos aproximadamente\n";
+  vector<double> x, y;
+  vector<int> asig(5);
+  ChartMaker chat;
+  for(int i=5; i<=50; i+=5){
+    for(auto &e: asig) e=i;
+    x.push_back(i);
+    y.push_back(run.simulate(asig, 100, CHECKOUT_LAMBDA, chickenProb).first);
+  }
+  chat.make(x, y, "Analisis convergencia");
 }
 
 int main(){
@@ -125,6 +144,7 @@ int main(){
   // part1();
   // part2a();
   // part2bc(3000);
-  part2d();  
+  // part2d(1/2.0);
+  // part2e(0.5); 
   return 0;
 }

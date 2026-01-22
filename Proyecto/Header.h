@@ -37,8 +37,7 @@ using namespace std;
 #define DES_N 5
 #define DES_P 0.6
 #define CHI_P 0.1
-#define CHECKOUT_LAMBDA 1/2.0
-// #define CHECKOUT_LAMBDA 1/2.5
+#define CHECKOUT_LAMBDA 1/2.5
 #define AMOUNT_N 5
 #define AMOUNT_P 2.0/5
 #define ARRIVE_LAMBDA 3
