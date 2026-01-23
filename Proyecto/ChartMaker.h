@@ -19,7 +19,8 @@ class ChartMaker {
 
     void make(vector<double> & x, vector<double> & y, string title){
       assert((int)x.size() == (int)y.size());
-      fprintf(gnuplot, "set term qt %d\n", n++);
+      fprintf(gnuplot, "set term pngcairo size 800,600\n");
+      fprintf(gnuplot, "set output 'Charts/%d.png'\n", n++);
       fprintf(gnuplot, "set title '%s'\n", title.c_str());
       fprintf(gnuplot, "set xlabel 'x'\n");
       fprintf(gnuplot, "set ylabel 'y'\n");
@@ -27,8 +28,11 @@ class ChartMaker {
       for(int i = 0; i < (int)x.size(); i++)
         fprintf(gnuplot, "%lf %lf\n", x[i], y[i]);
       fprintf(gnuplot, "e\n");
+      fprintf(gnuplot, "set output\n");
       fflush(gnuplot);
     }
 };
+
+extern ChartMaker chat;
 
 #endif

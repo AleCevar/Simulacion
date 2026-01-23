@@ -1,6 +1,8 @@
 #include "Configurer.h"
 #include "ChartMaker.h"
 
+ChartMaker chat;
+
 void brute(){
   Run run = Run();
   double mnMean = 1e9, mxMean = 0, mnVar = 1e9, mxVar = 0;
@@ -52,7 +54,6 @@ void part2a() {
   cout<<"2. a) No se puede. El tiempo converge a los ocho minutos aproximadamente\n";
   vector<double> x, y;
   vector<int> asig(5);
-  ChartMaker chat;
   for(int i=5; i<=50; i+=5){
     for(auto &e: asig) e=i;
     x.push_back(i);
@@ -128,13 +129,17 @@ void part2e(double chickenProb){
   cout<<"2. e) No se puede. El tiempo converge a los 10 minutos aproximadamente\n";
   vector<double> x, y;
   vector<int> asig(5);
-  ChartMaker chat;
   for(int i=5; i<=50; i+=5){
     for(auto &e: asig) e=i;
     x.push_back(i);
     y.push_back(run.simulate(asig, 100, CHECKOUT_LAMBDA, chickenProb).first);
   }
   chat.make(x, y, "Analisis convergencia");
+}
+
+void genCharts(vector<int> asig) {
+  Run run = Run();
+  run.stats(asig,10);
 }
 
 int main(){
@@ -145,6 +150,7 @@ int main(){
   // part2a();
   // part2bc(3000);
   // part2d(1/2.0);
-  // part2e(0.5); 
+  // part2e(0.5);
+  genCharts({2,1,2,1,3});
   return 0;
 }

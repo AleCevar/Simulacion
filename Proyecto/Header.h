@@ -52,4 +52,9 @@ using namespace std;
 
 #define NUMBER_DECIMALS 100.0
 
+struct Statistic {
+  double mean, median, variance, mode, minimum, maximum;
+  vector<double> time;
+};
+
 #endif

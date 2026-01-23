@@ -77,6 +77,40 @@ class Entry {
       variance/=int(clients.size());
       return {mean,variance};
     }
+
+    Statistic getAllStats(){
+      double sum = 0;
+      Statistic data;
+      for(auto client : clients) {
+        sum += client->getTotalTime();
+        data.time.push_back(client->getTotalTime());
+      }
+      int n = (int) data.time.size();
+      { // Mean and variance
+        double mean = sum / n;
+        double variance = 0;
+        for(auto e: clients) variance+=pow(mean-e->getTotalTime(), 2);
+        variance/=n;
+        data.mean=mean;
+        data.variance=variance;
+      }
+      { // median
+        if(n%2) data.median = data.time[n/2];
+        else data.median = (data.time[n/2-1] + data.time[n/2])/2;
+      }
+      { //Mode
+        map<int,int> cnt;
+        for(auto e: data.time) cnt[int(e)]++;
+        pair<int, int> mode={0, 0};
+        for (auto [x,y] : cnt) mode = max(mode,{y,x});
+        data.mode = mode.second;
+      }
+      { // Min _ Max
+        data.minimum = *min_element(data.time.begin(), data.time.end());
+        data.maximum = *max_element(data.time.begin(), data.time.end());
+      }
+      return data;
+    }
 };
 
 #endif
