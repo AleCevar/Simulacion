@@ -1,10 +1,8 @@
 #ifndef SIMULACION_ENTRY_H
 #define SIMULACION_ENTRY_H
 
-#include "Servers/Server.h"
 #include "Distributions/Distribution.h"
 #include "Servers/Checkout.h"
-#include "Distributions/Exponential.h"
 #include "Servers/Station.h"
 
 using namespace std;
@@ -108,6 +106,24 @@ class Entry {
       { // Min _ Max
         data.minimum = *min_element(data.time.begin(), data.time.end());
         data.maximum = *max_element(data.time.begin(), data.time.end());
+      }
+      { // Covariance
+        for (int i = 0; i < 5; i++) {
+          for (int j = i+1; j < 5; j++) {
+            double mux = 0, muy=0;
+            for (auto const & c : clients) {
+              mux += c->getWaitTime(names[i]);
+              muy += c->getWaitTime(names[j]);
+            }
+            mux /= n;
+            muy /= n;
+            sum = 0;
+            for (auto const & c : clients) {
+               sum += (c->getWaitTime(names[i]) - mux) * (c->getWaitTime(names[j]) - muy);
+            }
+            data.stationTimes[names[i]+"-"+names[j]] = sum/n;
+          }
+        }
       }
       return data;
     }

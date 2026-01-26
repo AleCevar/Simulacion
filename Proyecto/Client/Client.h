@@ -9,6 +9,7 @@ class Client {
     double checkoutEnterTime;
     double checkoutExitTime;
     double exitTime;
+    map<string, double> waitTimes;
     int id;
 
   public:
@@ -18,12 +19,20 @@ class Client {
       return max(exitTime-arrivalTime, checkoutExitTime-arrivalTime);
     }
 
-    void updateExitTime(double exitTime_){
+    void updateExitTime(double exitTime_, string & name){
       exitTime = max(exitTime, exitTime_);
+      auto &it=waitTimes[name];
+      it = max(it,exitTime_);
+    }
+
+    double getWaitTime(string & name) {
+      if (name == "Check") return checkoutExitTime - arrivalTime;
+      return waitTimes[name] - checkoutExitTime;
     }
 
     void updateCheckoutExitTime(double checkoutExitTime_){
       checkoutExitTime = checkoutExitTime_;
+
     }
 
     void updateCheckoutEnterTime(double checkoutEnterTime_){

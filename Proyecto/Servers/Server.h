@@ -25,11 +25,11 @@ class Server {
       lastTime = lastTime_;
     }
 
-    void attendClient(Client* client){
+    void attendClient(Client* client, string & name){
       double time = getTime();
       double enterTime = max(client->getCheckoutExitTime(), lastTime);
       updateLastTime(time + enterTime);
-      client->updateExitTime(time + enterTime);
+      client->updateExitTime(time + enterTime, name);
       show("Client "<<client->getId()<<" attended at time "<<enterTime<<" and leaves at "<<lastTime);
     }
 };

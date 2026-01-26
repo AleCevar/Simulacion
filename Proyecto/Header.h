@@ -54,7 +54,10 @@ using namespace std;
 
 struct Statistic {
   double mean, median, variance, mode, minimum, maximum;
+  map<string,double> stationTimes;
   vector<double> time;
 };
+
+vector<string> names = {FIRST_NAME,SECOND_NAME,THIRD_NAME,FOURTH_NAME,"Check"};
 
 #endif

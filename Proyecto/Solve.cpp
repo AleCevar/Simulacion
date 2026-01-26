@@ -143,14 +143,11 @@ void genCharts(vector<int> asig) {
 }
 
 int main(){
-  // brute();
-  // auto [m,v] = run.simulate({100,100,100,100,100}, 100);
-  // cout << m << ' ' << v << '\n';
-  // part1();
-  // part2a();
-  // part2bc(3000);
-  // part2d(1/2.0);
-  // part2e(0.5);
+  part1();
+  part2a();
+  part2bc(3000);
+  part2d(1/2.0);
+  part2e(0.5);
   genCharts({2,1,2,1,3});
   return 0;
 }

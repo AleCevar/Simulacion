@@ -60,6 +60,7 @@ class Run {
 
     void stats(vector<int> asig, int time=NUMBER_CYCLES, double checkoutLambda = CHECKOUT_LAMBDA) {
       vector<double> allTimes, mean, var, median,minimum,maximum,mode;
+      map<string,vector<double>> coviarance;
       for (int i = 0; i < time; i++) {
         auto data = run(asig,checkoutLambda,FOURTH_PROB);
         allTimes.insert(allTimes.end(),data.time.begin(),data.time.end());
@@ -69,6 +70,9 @@ class Run {
         minimum.push_back(data.minimum);
         maximum.push_back(data.maximum);
         mode.push_back(data.mode);
+        for (auto const& [name, val] : data.stationTimes) {
+          coviarance[name].push_back(val);
+        }
       }
       sort(allTimes.begin(), allTimes.end());
       int n=allTimes.size();
@@ -97,12 +101,16 @@ class Run {
       chat.make(x,minimum,"Grafica de Minimo de : " + s);
       chat.make(x,maximum,"Grafica de Maximo de : " + s);
       chat.make(x,mode,"Grafica de Moda de : " + s);
+      for (auto & [name, vec] : coviarance) {
+        chat.make(x,vec,"Grafica de Covarianza de : " + name);
+      }
       x.assign(99,0);
       iota(x.begin(),x.end(),1.0);
       chat.make(x,perc,"Grafica de Percentiles de : " + s);
       x.assign(3,0);
       iota(x.begin(),x.end(),1.0);
       chat.make(x,quar,"Grafica de Quartiles de : " + s);
+
     }
 
     void runTests(){

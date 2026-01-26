@@ -10,8 +10,8 @@ using namespace std;
 class Station {
   private:
     string name;
-	  int numServers;
-		vector<Server> servers;
+	int numServers;
+	vector<Server> servers;
     vector<Client*> orders;
     double probBuy;
     mt19937 gen;
@@ -50,13 +50,13 @@ class Station {
       return n < probBuy;
     }
 		
-		void start(){
+	void start(){
       sort(orders.rbegin(), orders.rend(), compare);
-			while(!orders.empty()){
-        auto client = orders.back(); orders.pop_back();
-        int serverId = findNextServer();
-        show("Client "<<client->getId()<<" at "<<name<<" on server "<<serverId<<" :");
-        servers[serverId].attendClient(client);
+		while(!orders.empty()){
+		    auto client = orders.back(); orders.pop_back();
+			int serverId = findNextServer();
+		    show("Client "<<client->getId()<<" at "<<name<<" on server "<<serverId<<" :");
+		    servers[serverId].attendClient(client, name);
       }
     }
 
